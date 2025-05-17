@@ -2,6 +2,7 @@ let display = document.querySelector('p');
 let numbers = document.querySelectorAll('.numbers');
 let equalSign = document.querySelector('.equal-to');
 let operatorSigns = document.querySelectorAll('.operator');
+let clearBtn = document.querySelector('.clear');
 
 
 function add(a, b) {
@@ -34,6 +35,7 @@ Array.from(numbers).map(number => number.addEventListener('click',(value) => {
         display.textContent = "";
     } 
     document.querySelector('p').textContent += value.target.textContent;
+    clearBtn.textContent = 'C';
 }));
 
 Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('click', (value) => {
@@ -62,4 +64,9 @@ equalSign.addEventListener('click', () => {
     first = Number(display.textContent.slice(0, signIndex));
     second = Number(display.textContent.slice(++signIndex));
     display.textContent = operate(operator, first, second);
+});
+
+
+clearBtn.addEventListener('click', () => {
+    display.textContent = '0';
 });
