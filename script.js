@@ -4,6 +4,7 @@ let equalSign = document.querySelector('.equal-to');
 let operatorSigns = document.querySelectorAll('.operator');
 let clearBtn = document.querySelector('.clear');
 let percentageBtn = document.querySelector('.percentage-button');
+let greyBtns = document.querySelectorAll('.grey-btn');
 
 
 const myDiv = document.querySelector('.display');
@@ -49,24 +50,25 @@ Array.from(numbers).map(number => number.addEventListener('click',(value) => {
 }));
 
 Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('click', (value) => {
-        sign = operatorSign.textContent;
-        operator = operatorSign.textContent;
-        display.textContent += value.target.textContent;
-        
-        switch (operator) {
-            case '+':
-                operator = add;
-                break;
-            case '-':
-                operator = subtract;
-                break;
-            case '×':
-                operator = multiply;
-                break;
-            case '/':
-                operator = divide;
-                break;
-        }
+    element.remove();
+    sign = operatorSign.textContent;
+    operator = operatorSign.textContent;
+    display.textContent += value.target.textContent;
+    
+    switch (operator) {
+        case '+':
+            operator = add;
+            break;
+        case '-':
+            operator = subtract;
+            break;
+        case '×':
+            operator = multiply;
+            break;
+        case '/':
+            operator = divide;
+            break;
+    }
 }));
 
 equalSign.addEventListener('click', () => {

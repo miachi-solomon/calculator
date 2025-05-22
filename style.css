@@ -56,8 +56,12 @@ button {
     border: none;
     border-radius: 36.5px;
     cursor: pointer;
+}
+
+.numbers {
     background-color: #505050;
     color: white;
+    transition: background-color 0.1s;
 }
 
 .btn-0 {
@@ -69,14 +73,24 @@ button {
 .operator-btn-right-hand {
     background-color: rgb(250, 168, 16);
     color: white;
+    transition: background-color 0.1s;
 }
 
 .grey-btn {
     background-color: rgb(212, 212, 212);
     color: black;
+    transition: background-color 0.1s;
 }
 
-.button-clicked {
+.operator-btn-right-hand:active {
     background-color: white;
     color: rgb(250, 168, 16);
+}
+
+.numbers:active {
+    background-color: #959595;
+}
+
+.grey-btn:active {
+    background-color: rgb(243, 242, 242);
 }
