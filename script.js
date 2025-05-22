@@ -52,6 +52,7 @@ Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('cli
         sign = operatorSign.textContent;
         operator = operatorSign.textContent;
         display.textContent += value.target.textContent;
+        element.remove();
         
         switch (operator) {
             case '+':
