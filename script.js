@@ -3,7 +3,13 @@ let numbers = document.querySelectorAll('.numbers');
 let equalSign = document.querySelector('.equal-to');
 let operatorSigns = document.querySelectorAll('.operator');
 let clearBtn = document.querySelector('.clear');
+let percentageBtn = document.querySelector('.percentage-button');
 
+
+const myDiv = document.querySelector('.display');
+let element = document.createElement('p');
+element.textContent = '0';
+myDiv.appendChild(element);
 
 function add(a, b) {
     return a + b;
@@ -14,12 +20,18 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-    return a * b;
+    let result = a * b;
+    return Math.round(result * 100) / 100;
 }
 
 function divide(a, b) {
     return a / b;
 }
+
+function percentage(a) {
+    return a / 100;
+}
+
 
 let first;
 let second;
@@ -31,10 +43,8 @@ function operate(operator, a, b) {
 }
 
 Array.from(numbers).map(number => number.addEventListener('click',(value) => {
-    if (display.textContent == 0){
-        display.textContent = "";
-    } 
-    document.querySelector('p').textContent += value.target.textContent;
+    element.remove();
+    display.textContent += value.target.textContent;
     clearBtn.textContent = 'C';
 }));
 
@@ -50,7 +60,7 @@ Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('cli
             case '-':
                 operator = subtract;
                 break;
-            case 'X':
+            case '×':
                 operator = multiply;
                 break;
             case '/':
@@ -63,10 +73,17 @@ equalSign.addEventListener('click', () => {
     let signIndex = display.textContent.indexOf(sign);
     first = Number(display.textContent.slice(0, signIndex));
     second = Number(display.textContent.slice(++signIndex));
-    display.textContent = operate(operator, first, second);
+    display.textContent = '';
+    element.textContent = operate(operator, first, second);
+    myDiv.appendChild(element);
 });
 
-
 clearBtn.addEventListener('click', () => {
-    display.textContent = '0';
+    display.textContent = '';
+    element.textContent = '0';
+    myDiv.appendChild(element);
+});
+
+percentageBtn.addEventListener('click', (value) => {
+    display.textContent = percentage(display.textContent);
 });

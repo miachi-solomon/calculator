@@ -75,3 +75,8 @@ button {
     background-color: rgb(212, 212, 212);
     color: black;
 }
+
+.button-clicked {
+    background-color: white;
+    color: rgb(250, 168, 16);
+}
