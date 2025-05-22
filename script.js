@@ -84,6 +84,6 @@ clearBtn.addEventListener('click', () => {
     myDiv.appendChild(element);
 });
 
-percentageBtn.addEventListener('click', (value) => {
+percentageBtn.addEventListener('click', () => {
     display.textContent = percentage(display.textContent);
 });
