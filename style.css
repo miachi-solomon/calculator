@@ -73,7 +73,6 @@ button {
 .operator-btn-right-hand {
     background-color: rgb(250, 168, 16);
     color: white;
-    transition: background-color 0.1s;
 }
 
 .grey-btn {
@@ -82,7 +81,7 @@ button {
     transition: background-color 0.1s;
 }
 
-.operator-btn-right-hand:active {
+.operator-btn-right-hand-clicked {
     background-color: white;
     color: rgb(250, 168, 16);
 }

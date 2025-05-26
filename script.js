@@ -4,8 +4,6 @@ let equalSign = document.querySelector('.equal-to');
 let operatorSigns = document.querySelectorAll('.operator');
 let clearBtn = document.querySelector('.clear');
 let percentageBtn = document.querySelector('.percentage-button');
-let greyBtns = document.querySelectorAll('.grey-btn');
-
 
 const myDiv = document.querySelector('.display');
 let element = document.createElement('p');
@@ -26,35 +24,45 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    let result = a / b;
+    return Math.round(result * 100) / 100;
 }
 
 function percentage(a) {
     return a / 100;
 }
 
-
-let first;
-let second;
-let operator;
-let sign;
-
 function operate(operator, a, b) {
     return operator(a, b);
 }
 
-Array.from(numbers).map(number => number.addEventListener('click',(value) => {
-    element.remove();
-    display.textContent += value.target.textContent;
-    clearBtn.textContent = 'C';
-}));
+let first;
+let second;
+let operator;
+let numberWasClicked = false;
 
-Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('click', (value) => {
+function clickNumber(value) {
+    Array.from(operatorSigns).map(operatorSign => operatorSign.classList.remove('operator-btn-right-hand-clicked'));
     element.remove();
-    sign = operatorSign.textContent;
-    operator = operatorSign.textContent;
     display.textContent += value.target.textContent;
-    
+    numberWasClicked = true;
+}
+
+Array.from(numbers).map(number => number.addEventListener('click', clickNumber));
+
+
+Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('click', () => {
+    operatorSign.classList.add('operator-btn-right-hand-clicked');
+    operator = operatorSign.textContent;
+    first = display.textContent.slice(0);
+    console.log(first);
+    numberWasClicked = false;
+
+    if(!numberWasClicked) {
+        clickNumber();
+    }
+
+
     switch (operator) {
         case '+':
             operator = add;
@@ -72,12 +80,7 @@ Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('cli
 }));
 
 equalSign.addEventListener('click', () => {
-    let signIndex = display.textContent.indexOf(sign);
-    first = Number(display.textContent.slice(0, signIndex));
-    second = Number(display.textContent.slice(++signIndex));
-    display.textContent = '';
-    element.textContent = operate(operator, first, second);
-    myDiv.appendChild(element);
+
 });
 
 clearBtn.addEventListener('click', () => {
@@ -86,6 +89,6 @@ clearBtn.addEventListener('click', () => {
     myDiv.appendChild(element);
 });
 
-percentageBtn.addEventListener('click', (value) => {
+percentageBtn.addEventListener('click', () => {
     display.textContent = percentage(display.textContent);
 });
