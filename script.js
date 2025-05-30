@@ -39,13 +39,12 @@ function operate(operator, a, b) {
 let first;
 let second;
 let operator;
-let numberWasClicked;
 let operatorWasClicked;
+let result;
 
 function clickNumber(value) {
     element.remove();
     display.textContent += value.target.textContent;
-    numberWasClicked = true;
 }
 
 Array.from(numbers).map(number => number.addEventListener('click', clickNumber));
@@ -64,30 +63,42 @@ Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('cli
                 display.textContent = value.target.textContent;
             }
             second = Number(display.textContent.slice(0));
-        
+            result = operate(operator, first, second);
         }));
-    }
-    switch (operator) {
-        case '+':
-            operator = add;
-            break;
-        case '-':
-            operator = subtract;
-            break;
-        case '×':
-            operator = multiply;
-            break;
-        case '/':
-            operator = divide;
-            break;
+
+        switch (operator) {
+            case '+':
+                operator = add;
+                break;
+            case '-':
+                operator = subtract;
+                break;
+            case '×':
+                operator = multiply;
+                break;
+            case '/':
+                operator = divide;
+                break;
+        }
     }
 }));
 
 equalSign.addEventListener('click', () => {
-    display.textContent = operate(operator, first, second);
+    if (result != undefined) {
+    element.textContent = result;
+    display.textContent = '';
+    myDiv.appendChild(element);
+    } 
+    if (result === NaN || result === Infinity) {
+        result = 'Lmao';
+        element.textContent = result;
+        display.textContent = '';
+        myDiv.appendChild(element);
+    }
 });
 
 clearBtn.addEventListener('click', () => {
+    result = undefined;
     display.textContent = '';
     element.textContent = '0';
     myDiv.appendChild(element);
