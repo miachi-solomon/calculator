@@ -39,10 +39,15 @@ function operate(operator, a, b) {
 let first;
 let second;
 let operator;
+let clickEqual;
 let operatorWasClicked;
 let result;
 
 function clickNumber(value) {
+    if (clickEqual) {
+        display.textContent = '';
+        clickEqual = false;
+    }
     element.remove();
     display.textContent += value.target.textContent;
 }
@@ -66,6 +71,11 @@ Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('cli
             result = operate(operator, first, second);
         }));
 
+        if (result) {
+            display.textContent = result;
+            first = result;
+        }
+
         switch (operator) {
             case '+':
                 operator = add;
@@ -81,23 +91,31 @@ Array.from(operatorSigns).map(operatorSign => operatorSign.addEventListener('cli
                 break;
         }
     }
+
+
 }));
 
 equalSign.addEventListener('click', () => {
-    if (result != undefined) {
-    element.textContent = result;
-    display.textContent = '';
-    myDiv.appendChild(element);
+    clickEqual = true;
+    if (result) {
+        display.textContent = result;
     } 
-    if (result === NaN || result === Infinity) {
+    if (result === Infinity) {
         result = 'Lmao';
         element.textContent = result;
         display.textContent = '';
         myDiv.appendChild(element);
     }
+    if (clickEqual) {
+        result = undefined;
+        first = undefined;
+        second = undefined;
+    }
 });
 
 clearBtn.addEventListener('click', () => {
+    first = undefined;
+    second = undefined;
     result = undefined;
     display.textContent = '';
     element.textContent = '0';
